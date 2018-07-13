@@ -1,0 +1,9 @@
+oauth_key: ""
+locations:
+    - status: 
+      icon: ""
+      ssids:
+        - iCapps
+unknown:
+  status: 'Lost in space'
+  icon: ':male-astronaut:'
