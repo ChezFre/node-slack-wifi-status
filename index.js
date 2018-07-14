@@ -30,6 +30,6 @@ try {
     slack.setStatus(config.unknown.status, config.unknown.icon);
   }
 } catch (exception) {
-  debug("Could not read configuration file at ./config/config.yaml");
+  debug(`Could not read configuration file at ${__dirname}/config/config.yaml`);
   debug(exception);
 }
