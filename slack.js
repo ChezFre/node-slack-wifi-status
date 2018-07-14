@@ -5,32 +5,42 @@ const yaml = require("js-yaml");
 const fs = require("fs");
 
 const url = "https://slack.com/api/users.profile.set";
-const config = yaml.safeLoad(fs.readFileSync("./config/config.yaml", "utf8"));
 
-function set_status(status, icon) {
-  return fetch(url, {
-    headers: {
-      Authorization: `Bearer ${config.oauth_key}`,
-      "Content-Type": "application/json;charset=UTF-8"
-    },
-    method: "post",
-    body: JSON.stringify({
-      profile: {
-        status_text: status,
-        status_emoji: icon
-      }
+class SlackService {
+  constructor(OAUTH_KEY) {
+    this._OAUTH_KEY = OAUTH_KEY;
+
+    this.setStatus = this.setStatus.bind(this);
+  }
+
+  setStatus(status, icon) {
+    return fetch(url, {
+      headers: {
+        Authorization: `Bearer ${this._OAUTH_KEY}`,
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      method: "post",
+      body: JSON.stringify({
+        profile: {
+          status_text: status,
+          status_emoji: icon
+        }
+      })
     })
-  })
-    .then(res => res.json())
-    .then(res => {
-      debug(
-        `Successfully updated slack status to "${status} ${emoji.get(icon)}"!`
-      );
-    })
-    .catch(exception => {
-      debug("Could not communicate with slack API");
-      debug(exception);
-    });
+      .then(res => res.json())
+      .then(res => {
+        if (res.ok === false) {
+          throw new Error(res.error);
+        }
+        debug(
+          `Successfully updated slack status to "${status} ${emoji.get(icon)}"!`
+        );
+      })
+      .catch(exception => {
+        debug("The Slack API is offline or returned an error message");
+        debug(exception);
+      });
+  }
 }
 
-module.exports = set_status;
+module.exports = SlackService;

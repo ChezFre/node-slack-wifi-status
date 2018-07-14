@@ -5,16 +5,21 @@ const debug = require("debug")("logging");
 
 const CURRENT_WIFI = wifiName.sync();
 
-const set_status = require("./slack");
+const SlackService = require("./slack");
 
 try {
-  const config = yaml.safeLoad(fs.readFileSync("./config/config.yaml", "utf8"));
+  const config = yaml.safeLoad(
+    fs.readFileSync(`${__dirname}/config/config.yaml`, "utf8")
+  );
+
+  const slack = new SlackService(config.oauth_key);
+
   let statusUpdated = false;
 
   for (location of config.locations) {
     if (location.ssids.includes(CURRENT_WIFI)) {
       const { status, icon } = location;
-      set_status(status, icon);
+      slack.setStatus(status, icon);
       statusUpdated = true;
       break;
     }
@@ -22,7 +27,7 @@ try {
 
   if (!statusUpdated) {
     debug("Location not recognized");
-    set_status(config.unknown.status, config.unknown.icon);
+    slack.setStatus(config.unknown.status, config.unknown.icon);
   }
 } catch (exception) {
   debug("Could not read configuration file at ./config/config.yaml");
