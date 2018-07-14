@@ -10,6 +10,7 @@ NodeJS version of https://github.com/icapps/slack-wifi-status
 # Setup the script
 
 - Clone the script from this repo (for example to your /Applications/utilities folder).
+- Run `npm install`
 - Copy the `config/config.example.yaml` file to `config/config.yaml` and add in your API token and ssids.
 
 ```yaml
