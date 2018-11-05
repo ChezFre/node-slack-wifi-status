@@ -56,4 +56,6 @@ logging Successfully updated slack status to "Lost in space :male-astronaut:"! +
   
 Or
 
-`logging Successfully updated slack status to "At home :home:"! +0ms`
+```
+logging Successfully updated slack status to "At home :home:"! +0ms
+```
