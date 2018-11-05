@@ -49,8 +49,10 @@ Should a location not work you can get some basic debugging information by runni
 
 This will return
 
-```logging Location not recognized +0ms
-  logging Successfully updated slack status to "Lost in space :male-astronaut:"! +0ms```
+```
+logging Location not recognized +0ms
+logging Successfully updated slack status to "Lost in space :male-astronaut:"! +0ms
+```
   
 Or
 
