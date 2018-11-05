@@ -40,3 +40,18 @@ locations:
 
 - Press the esc button
 - Type the following `:wq`
+
+# Debugging
+
+Should a location not work you can get some basic debugging information by running
+
+`DEBUG=* node index.js`
+
+This will return
+
+```logging Location not recognized +0ms
+  logging Successfully updated slack status to "Lost in space :male-astronaut:"! +0ms```
+  
+Or
+
+`logging Successfully updated slack status to "At home :home:"! +0ms`
